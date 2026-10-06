@@ -8,14 +8,6 @@ URL_WEATHER_API = "https://api.openweathermap.org/data/2.5/weather"
 UNITS_METRIC ="metric"
 LANG_RU = "ru"
 
-def get_weather_data(city):
-    try:
-        return requests.get(URL_WEATHER_API,
-                        params={"q": city, "appid": API_KEY,
-                                "units": UNITS_METRIC, "lang": LANG_RU})
-    except requests.exceptions.RequestException:
-        return None
-
 def get_weather(city):
     response = get_weather_data(city)
 
@@ -35,3 +27,11 @@ def get_weather(city):
             return "Город не найден"
         elif response.status_code == 401:
             return f"Ошибка: {data['message']}"
+
+def get_weather_data(city):
+    try:
+        return requests.get(URL_WEATHER_API,
+                        params={"q": city, "appid": API_KEY,
+                                "units": UNITS_METRIC, "lang": LANG_RU})
+    except requests.exceptions.RequestException:
+        return None
